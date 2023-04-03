@@ -1,10 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'urlshortenerfrontend';
+
+export class AppComponent implements OnInit {
+  form: FormGroup;
+  response: string;
+
+  constructor(private fb: FormBuilder, private http: HttpClient) { }
+
+  ngOnInit() {
+    this.form = this.fb.group({
+      url: ['', [Validators.required, Validators.pattern(/^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/)]]
+    });
+  }
+
+  onSubmit() {
+    const url = this.form.value.url;
+    this.http.post('http://localhost:8080/shorten', { url }).subscribe(
+      (response: any) => {
+        console.log("this is the response")
+        this.response = response.shortUrl;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
 }
