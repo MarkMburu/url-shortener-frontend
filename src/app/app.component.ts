@@ -24,7 +24,6 @@ export class AppComponent implements OnInit {
     const url = this.form.value.url;
     this.http.post('http://localhost:8080/shorten', {fullUrl : url }).subscribe(
       (response: any) => {
-        console.log("this is the response")
         this.response = response.shortUrl;
       },
       (error) => {
