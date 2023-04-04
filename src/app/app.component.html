@@ -1,13 +1,23 @@
-<div class="login-box">
-  <h2>Enter Url to shorten</h2>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <label for="firstname" class="placeholder">
-      Input URL:
-      <input type="text" formControlName="url">
-    </label>
-    <button type="submit" class="submit" [disabled]="form.invalid">Submit</button>
-  </form>
-  <div *ngIf="response">
-    Shortened URL: {{ response }}
+
+  <div class="card">
+
+    <div class="card-header">
+      <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-md">
+          <a class="navbar-brand" href="#">Url Shortener</a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="card-body">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="input-group mb-3">
+          <input type="url" class="form-control" placeholder=" Enter FullUrl" aria-label="Recipient's username" formControlName="url" aria-describedby="button-addon2">
+          <button class="btn btn-outline-secondary submit" type="submit" id="button-addon2" [disabled]="form.invalid">Submit</button>
+        </div>
+      </form>
+      <div *ngIf="response">
+        <strong>Shortened URL:</strong><a href="{{response}} ">{{ response }}</a>
+      </div>
+    </div>
   </div>
-</div>
